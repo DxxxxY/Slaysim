@@ -11,7 +11,7 @@
 
 <body>
     <p>Slaysim<sup>v{data.version}</sup></p>
-    <form action="/" method="POST" autocomplete="off" spellcheck="false">
+    <form autocomplete="off" spellcheck="false">
         <input type="text" name="username" placeholder="Username">
         <fieldset>
             <legend>Slayer</legend>
@@ -27,12 +27,24 @@
         </fieldset>
         <fieldset>
             <legend>Buffs</legend>
-            <!-- <label class="container">One
-                <input type="checkbox" checked="checked">
-                <span class="checkmark"></span>
-            </label> -->
+            <input required type="number" name="mf" onfocusout="this.value < this.min ? this.value = this.min : this.value" oninput="this.value = Math.min(this.max, this.value)" placeholder="Magic ✯" min="1" max="9999">
+            <span><input type="checkbox" name="gp" id="gp"><label for="gp">Godpot</label></span>
+            <input required type="number" name="wolf" onfocusout="this.value < this.min ? this.value = this.min : this.value" oninput="this.value = Math.min(this.max, this.value)" placeholder="Wolf LVL" min="1" max="100">
         </fieldset>
+        <fieldset>
+            <legend>Aatrox</legend>
+            <span><input type="checkbox" name="xp" id="xp"><label for="xp">XP</label></span>
+            <span><input type="checkbox" name="drops" id="drops"><label for="drops">Drops</label></span>
+            <span><input type="checkbox" name="price" id="price"><label for="price">Price</label></span>
+        </fieldset>
+        <input type="submit" value="Slay!">
     </form>
+    <div style="display: none;" class="loadingio-spinner-eclipse-rthltslkmep">
+        <div class="ldio-h1gmnkds5y9">
+            <div></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 
 </html>
