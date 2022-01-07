@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
+* {
+    font-family: 'Rubik', sans-serif;
+    scroll-behavior: smooth;
+    user-select: none;
+}
+
+body {
+    background-color: rgb(18, 17, 16);
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+p {
+    color: #5D3FD3;
+    display: inline;
+    font-size: 10vw;
+}
+
+sup {
+    color: #5D3FD3;
+    font-size: 3.5vw;
+}
+
+input,
+select {
+    box-sizing: border-box;
+    display: block;
+    outline: none;
+    background: none;
+    color: #5D3FD3;
+    text-align: center;
+    font-size: 3vw;
+    border-radius: 2px;
+    border: 0.25vw solid #5D3FD3;
+}
+
+label {
+    color: #5D3FD3;
+    font-size: 1vw;
+}
+
+option {
+    background-color: rgb(18, 17, 16);
+}
+
+input[type=number] {
+    width: 10vw;
+    height: 3vw;
+    font-size: 2vw;
+}
+
+input[type=text] {
+    margin-top: -5vw;
+    width: 45vw;
+    height: 3.33vw;
+}
+
+select {
+    width: 12vw;
+    height: 3vw;
+    font-size: 2vw;
+}
+
+fieldset {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 2px;
+    border: 0.25vw solid #5D3FD3;
+}
+
+legend {
+    font-size: 1.5vw;
+    color: #5D3FD3;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+::selection {
+    background-color: transparent;
+    cursor: default;
+}
+
+::placeholder {
+    color: #5d3fd367;
+}

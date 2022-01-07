@@ -1,0 +1,12 @@
+{
+    "name": "slaysim",
+    "version": "1.0.0",
+    "main": "app.js",
+    "author": "dxxxxy#0776",
+    "dependencies": {
+        "axios": "^0.24.0",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.2",
+        "wge": "^0.0.5"
+    }
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Slaysim</title>
+</head>
+
+<body>
+    <p>Slaysim<sup>v{data.version}</sup></p>
+    <form action="/" method="POST" autocomplete="off" spellcheck="false">
+        <input type="text" name="username" placeholder="Username">
+        <fieldset>
+            <legend>Slayer</legend>
+            <select required name="type">
+                <option value="" disabled selected>Type</option>
+                <option value="zombie">Revenant</option>
+                <option value="spider">Tarantula</option>
+                <option value="wolf">Sven</option>
+                <option value="enderman">Voidgloom</option>
+            </select>
+            <input required type="number" name="tier" onfocusout="this.value < this.min ? this.value = this.min : this.value" oninput="this.value = Math.min(this.max, this.value)" placeholder="Tier" min="1" max="5">
+            <input required type="number" name="amount" onfocusout="this.value < this.min ? this.value = this.min : this.value" oninput="this.value = Math.min(this.max, this.value)" placeholder="Amount" min="1" max="999">
+        </fieldset>
+        <fieldset>
+            <legend>Buffs</legend>
+            <!-- <label class="container">One
+                <input type="checkbox" checked="checked">
+                <span class="checkmark"></span>
+            </label> -->
+        </fieldset>
+    </form>
+</body>
+
+</html>
