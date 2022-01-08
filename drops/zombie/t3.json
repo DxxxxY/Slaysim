@@ -1,0 +1,9 @@
+{
+    "revenantFlesh": [100, [30, 50]],
+    "foulFlesh": [20, [1, 2]],
+    "pestilenceRuneI": [5, 1],
+    "undeadCatalyst": [1, 1],
+    "smiteViBook": [0.054, 1],
+    "beheadedHorror": [0.162, 1],
+    "revenantCatalyst": [1, 1]
+}

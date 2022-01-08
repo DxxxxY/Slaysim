@@ -1,0 +1,15 @@
+{
+    "revenantFlesh": [100, [63, 64]],
+    "foulFlesh": [20, [3, 4]],
+    "pestilenceRuneI": [5, 1],
+    "undeadCatalyst": [1, 1],
+    "smiteViBook": [1, 1],
+    "beheadedHorror": [0.162, 1],
+    "revenantCatalyst": [1, 1],
+    "snakeRuneI": [0.108, 1],
+    "scytheBlade": [0.054, 1],
+    "revenantViscera": [20, [1, 2]],
+    "smiteViiBook": [0.027, 1],
+    "shardOfTheShredded": [0.027, 1],
+    "wardenHeart": [0.01, 1]
+}

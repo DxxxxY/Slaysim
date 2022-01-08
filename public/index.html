@@ -12,24 +12,24 @@
 <body>
     <p>Slaysim<sup>v{data.version}</sup></p>
     <form autocomplete="off" spellcheck="false">
-        <input type="text" name="username" placeholder="Username">
+        <input required type="text" name="username" placeholder="Username">
         <fieldset>
             <legend>Slayer</legend>
             <select required name="type">
                 <option value="" disabled selected>Type</option>
                 <option value="zombie">Revenant</option>
-                <option value="spider">Tarantula</option>
-                <option value="wolf">Sven</option>
-                <option value="enderman">Voidgloom</option>
+                <option value="spider" disabled>Tarantula</option>
+                <option value="wolf" disabled>Sven</option>
+                <option value="enderman" disabled>Voidgloom</option>
             </select>
             <input required type="number" name="tier" onfocusout="this.value < this.min ? this.value = this.min : this.value" oninput="this.value = Math.min(this.max, this.value)" placeholder="Tier" min="1" max="5">
-            <input required type="number" name="amount" onfocusout="this.value < this.min ? this.value = this.min : this.value" oninput="this.value = Math.min(this.max, this.value)" placeholder="Amount" min="1" max="999">
+            <input required type="number" name="amount" onfocusout="this.value < this.min ? this.value = this.min : this.value" oninput="this.value = Math.min(this.max, this.value)" placeholder="Amount" min="1" max="9999">
         </fieldset>
         <fieldset>
             <legend>Buffs</legend>
             <input required type="number" name="mf" onfocusout="this.value < this.min ? this.value = this.min : this.value" oninput="this.value = Math.min(this.max, this.value)" placeholder="Magic ✯" min="1" max="9999">
-            <span><input type="checkbox" name="gp" id="gp"><label for="gp">Godpot</label></span>
-            <input required type="number" name="wolf" onfocusout="this.value < this.min ? this.value = this.min : this.value" oninput="this.value = Math.min(this.max, this.value)" placeholder="Wolf LVL" min="1" max="100">
+            <!-- <span><input type="checkbox" name="gp" id="gp"><label for="gp">Godpot</label></span> -->
+            <!-- <input required type="number" name="wolf" onfocusout="this.value < this.min ? this.value = this.min : this.value" oninput="this.value = Math.min(this.max, this.value)" placeholder="Wolf LVL" min="1" max="100"> -->
         </fieldset>
         <fieldset>
             <legend>Aatrox</legend>

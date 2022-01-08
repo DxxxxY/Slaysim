@@ -9,7 +9,7 @@ document.querySelector("form").addEventListener("submit", async e => {
         },
         body: JSON.stringify(Object.fromEntries(new FormData(document.querySelector("form")).entries()))
     })
-    let res = await req.text()
-    console.log(res)
+    let res = await req.json()
+    console.log(JSON.parse(res[1]))
     document.querySelector("div.loadingio-spinner-eclipse-rthltslkmep").style.display = "none"
 })
