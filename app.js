@@ -1,3 +1,4 @@
+//setup
 require("dotenv").config()
 const express = require("express")
 const { get } = require("axios")
@@ -5,17 +6,18 @@ const data = require("./data.json")
 const path = require("path")
 const wge = require("wge")
 const utils = require("./utils")
+const helmet = require("helmet");
 const version = require("./package.json").version
-const res = require("express/lib/response")
 const app = express()
 const port = process.env.PORT || 80
 
-app.use(express.json())
+//plugins
+app.use(helmet()) //secure
+app.use(express.json()) //parse json
 app.use(express.urlencoded({ extended: true }))
 
-app.get("/", (req, res) => {
-    res.send(wge.render(path.join(__dirname, "public/index.html"), { version }))
-})
+//main page, send render
+app.get("/", (req, res) => res.send(wge.render(path.join(__dirname, "public/index.html"), { version })))
 
 app.post("/slayer", async(req, res) => {
     //get basic info
@@ -88,37 +90,33 @@ app.post("/slayer", async(req, res) => {
     //slayer level bonus
     if (stats.zombie[0] >= 7 && stats.spider[0] >= 7 && stats.wolf[0] >= 7 && stats.enderman[0] >= 7) stats.price -= 0.04
 
-    res.send(calcDrops(slayer.type, slayer.tier, stats.mf, slayer.amount))
+    //send simulated data
+    res.send(calcDrops(slayer.type, slayer.tier, stats.mf, slayer.amount, stats[type][0]))
 })
 
-String.prototype.capitalize = function() {
-    return this.toLowerCase().replace(/_/g, " ").replace(/(^|\s)([a-z])/g, function(m, p1, p2) {
-        return p1 + p2.toUpperCase()
-    })
-}
-
-String.prototype.camel = function() {
-    return this.replace(/[A-Z-_\&](?=[a-z0-9]+)|[A-Z-_\&]+(?![a-z0-9])/g, ' $&').trim().capitalize()
-}
-
-Array.prototype.random = function() {
-    return Math.floor(Math.random() * (Math.floor(this[1]) - Math.ceil(this[0]) + 1)) + Math.ceil(this[0])
-}
-
+//calculate the stack size to be dropped
 const calcStack = (type, tier, item) => {
     const drops = require(`./drops/${type}/t${tier}.json`) //loot table
     let drop = drops[item]
-    if (!drop[1][0]) return drop[1] //if range doesnt exist
-    else return drop[1].random()
+
+    //if range doesnt exist, its specific
+    return !drop[1][0] ? drop[1] : drop[1].random()
 }
 
+//drop into map
 const drop = (type, tier, item, map) => {
     map.set(item.camel(), (map.has(item.camel()) ? map.get(item.camel()) + calcStack(type, tier, item) : calcStack(type, tier, item)))
 }
 
-const calcDrops = (type, tier, mf, amount) => {
+//main calculation logic
+const calcDrops = (type, tier, mf, amount, level) => {
     let tickets = []
     const drops = require(`./drops/${type}/t${tier}.json`) //loot table
+    const levels = require(`./drops/${type}/levels.json`)
+
+    //if it doesnt meet level requirement then remove it from drops
+    Object.keys(levels).forEach(item => { if (level < levels[item]) delete drops[item] })
+
     let totalDrops = new Map()
     for (let i = 0; i < amount; i++) {
         let ticket = Math.random() * 100 //rng number
@@ -136,9 +134,8 @@ const calcDrops = (type, tier, mf, amount) => {
         })
 
         let temp = pool.slice(0).flat().filter(value => !isNaN(value)) //clone, flatten and filter out the non-numbers
-
         pool = pool.filter(drop => drop[1] == Math.min(...temp)) //choose only the lowest chance drops
-        pool = utils.shuffle(pool) //random shuffle between those drops
+        pool = utils.shuffle(pool) //random shuffle between those drops, because 
 
         tickets.push(ticket)
 
@@ -147,8 +144,23 @@ const calcDrops = (type, tier, mf, amount) => {
     return [`${data[type.toUpperCase()]} T${tier} - ${amount} runs - ${mf}% MF`, JSON.stringify(Object.fromEntries(totalDrops)), Math.min(...tickets)]
 }
 
+//serve static files, put last because it interferes with wge
 app.use(express.static("public"))
 
-app.listen(port, () => {
-    console.log(`Listening at http://localhost:${port}`)
-})
+//create server
+app.listen(port, () => console.log(`Listening at http://localhost:${port}`))
+
+//simple capitalize word
+String.prototype.capitalize = function() {
+    return this.toLowerCase().replace(/_/g, " ").replace(/(^|\s)([a-z])/g, function(m, p1, p2) { return p1 + p2.toUpperCase() })
+}
+
+//transform camel into separate capitalized words -> "revenantFlesh".camel() returns "Revenant Flesh"
+String.prototype.camel = function() {
+    return this.replace(/[A-Z-_\&](?=[a-z0-9]+)|[A-Z-_\&]+(?![a-z0-9])/g, ' $&').trim().capitalize()
+}
+
+//pick a random number from an array of 2 numbers as an inclusive range -> [ 20, 40 ].random() returns an integer between 20 and 40 (inclusive)
+Array.prototype.random = function() {
+    return Math.floor(Math.random() * (Math.floor(this[1]) - Math.ceil(this[0]) + 1)) + Math.ceil(this[0])
+}
