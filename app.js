@@ -22,9 +22,11 @@ app.get("/", (req, res) => res.send(wge.render(path.join(__dirname, "public/inde
 app.post("/slayer", async(req, res) => {
     //get basic info
     minecraftID = await (await get(`https://api.minetools.eu/uuid/${req.body.username}`)).data.id
-    if (!minecraftID) return res.send("This IGN could not be resolved")
+    if (minecraftID == null) return res.send(["get uuid error"])
     let profiles = await (await get(`https://api.hypixel.net/skyblock/profiles?key=${process.env.APIKEY}&uuid=${minecraftID}`)).data.profiles
+    if (profiles == null) return res.send(["get profiles error"])
     let profile = await (await get(`https://api.hypixel.net/skyblock/profile?key=${process.env.APIKEY}&profile=${utils.getLatestProfile(profiles, minecraftID)[0].profile_id}`)).data.profile
+    if (profile == null) return res.send(["get profile error"])
     let name = req.body.username
     let user = profile.members[minecraftID]
 
@@ -43,8 +45,9 @@ app.post("/slayer", async(req, res) => {
 
     //declare slayer
     let slayer = {
-        type: req.body.type,
-        tier: req.body.tier != 5 ? req.body.tier : (req.body.type == "zombie" ? 5 : 4),
+        type: req.body.type, //zombie, spider, wolf, enderman
+        //if tier is 5 and type is zombie --> return 5, else --> return 4, else --> return normal
+        tier: req.body.tier == 5 ? (req.body.type == "zombie" ? 5 : 4) : req.body.tier,
         amount: req.body.amount
     }
 
@@ -61,7 +64,7 @@ app.post("/slayer", async(req, res) => {
 
         //calc level
         if (!slayer.hasOwnProperty("xp")) return
-        let need = JSON.parse(JSON.stringify(data))[boss]
+        let need = data[boss]
 
         //get level and progress to next
         for (let x in need) {

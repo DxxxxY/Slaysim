@@ -15,6 +15,14 @@ document.querySelector("form").addEventListener("submit", async e => {
     //wait for response of simulated data
     let res = await req.json()
 
+    if (res.length == 1) {
+        document.querySelector("div.loadingio-spinner-eclipse-rthltslkmep").style.display = "none"
+        document.querySelector(".result").style.display = "block"
+        return document.querySelector(".result fieldset h1").innerText = res[0]
+    }
+
+    console.log(res)
+
     //parse it
     console.log(res[1])
     let title = res[0]
