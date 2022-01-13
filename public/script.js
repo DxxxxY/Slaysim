@@ -16,6 +16,14 @@ document.querySelector("form").addEventListener("submit", async e => {
     let res = await req.json()
 
     //parse it
-    console.log(JSON.parse(res[1]))
+    console.log(res[1])
+    let title = res[0]
+    let drops = JSON.parse(res[1])
+    let ticket = res[2]
     document.querySelector("div.loadingio-spinner-eclipse-rthltslkmep").style.display = "none"
+    document.querySelector(".result").style.display = "block"
+    Object.keys(drops).forEach(key => {
+        let value = drops[key]
+        document.querySelector(".result fieldset h1").innerText += `${value}x ${key}\n`
+    })
 })

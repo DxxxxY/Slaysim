@@ -91,7 +91,7 @@ app.post("/slayer", async(req, res) => {
     if (stats.zombie[0] >= 7 && stats.spider[0] >= 7 && stats.wolf[0] >= 7 && stats.enderman[0] >= 7) stats.price -= 0.04
 
     //send simulated data
-    res.send(calcDrops(slayer.type, slayer.tier, stats.mf, slayer.amount, stats[type][0]))
+    res.send(calcDrops(slayer.type, slayer.tier, stats.mf, slayer.amount, stats[slayer.type][0]))
 })
 
 //calculate the stack size to be dropped
@@ -141,7 +141,7 @@ const calcDrops = (type, tier, mf, amount, level) => {
 
         drop(type, tier, pool[0][0], totalDrops)
     }
-    return [`${data[type.toUpperCase()]} T${tier} - ${amount} runs - ${mf}% MF`, JSON.stringify(Object.fromEntries(totalDrops)), Math.min(...tickets)]
+    return [`${data[type.toUpperCase()]} T${tier} - ${amount} runs - ${mf * 100}% MF`, JSON.stringify(Object.fromEntries(totalDrops)), Math.min(...tickets)]
 }
 
 //serve static files, put last because it interferes with wge

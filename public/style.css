@@ -23,6 +23,13 @@ p {
     margin: 0;
 }
 
+h1 {
+    color: #5D3FD3;
+    display: inline;
+    font-size: 2vw;
+    margin: 0;
+}
+
 sup {
     color: #5D3FD3;
     font-size: 3.5vw;
@@ -73,6 +80,10 @@ input[type=text] {
 input[type=submit] {
     width: 45vw;
     margin-top: 1vw;
+}
+
+.result {
+    display: none;
 }
 
 input[type=checkbox] {
